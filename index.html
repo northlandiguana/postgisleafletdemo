@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+    <head>        
+        <meta charset="utf-8">
+
+        <title>Test Map</title>
+        <link rel="stylesheet" href="lib/jquery/jquery-ui.css">       
+        <link rel="stylesheet" href="lib/leaflet/leaflet.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <div id="map"></div>
+        <div id="form">
+            <form action="javascript:submitQuery()">
+                <label for="distance">Show features within</label>
+                <input type="text" name="distance"></input>
+                <label for="featname">km of features named</label>
+                <input type="text" name="featname"></input>
+                <input type="submit" value="Submit"></input>
+            </form>
+        </div>
+
+        <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+        <script type="text/javascript" src="lib/jquery/jquery-ui.js"></script>
+        <script type="text/javascript" src="lib/leaflet/leaflet.0.7.3-src.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+    </body>
+</html>

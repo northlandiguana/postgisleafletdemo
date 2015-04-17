@@ -1,0 +1,26 @@
+body {
+	margin: 0px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 14px;
+}
+
+label {
+	display: block;
+}
+
+input {
+	margin: 10px 0;
+}
+
+#map {
+	height: 100%;
+	width: 80%;
+	display: inline-block;
+}
+
+#form {
+	height: 100%;
+	width: 16%;
+	float: right;
+	padding: 40px 2%;
+}
