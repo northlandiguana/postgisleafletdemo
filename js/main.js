@@ -29,7 +29,7 @@ function getData(fields){
 			fields: fields
 		},
 		success: function(data){
-			mapData(data, map);
+			mapData(data);
 		}
 	})
 };
