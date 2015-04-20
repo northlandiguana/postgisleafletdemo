@@ -21,14 +21,14 @@ $fields = $_GET['fields'];
 //turn fields array into formatted string
 $fieldstr = "";
 foreach ($fields as $i => $field){
-	$fieldstr = $fieldstr . "r.$field, ";
+	$fieldstr = $fieldstr . "l.$field, ";
 }
 
 //get the geometry as geojson in WGS84
-$fieldstr = $fieldstr . "ST_AsGeoJSON(ST_Transform(r.geom,4326))";
+$fieldstr = $fieldstr . "ST_AsGeoJSON(ST_Transform(l.geom,4326))";
 
 //create basic sql statement
-$sql = "SELECT $fieldstr FROM $table r";
+$sql = "SELECT $fieldstr FROM $table l";
 
 //if a query, add those to the sql statement
 if (isset($_GET['featname'])){
@@ -36,7 +36,7 @@ if (isset($_GET['featname'])){
 	$distance = $_GET['distance'] * 1000; //change km to meters
 
 	//join for spatial query - table geom is in EPSG:26916
-	$sql = $sql . " LEFT JOIN $table l ON ST_DWithin(r.geom, l.geom, $distance) WHERE l.featname = '$featname';";
+	$sql = $sql . " LEFT JOIN $table r ON ST_DWithin(l.geom, r.geom, $distance) WHERE r.featname = '$featname';";
 }
 
 // echo $sql;

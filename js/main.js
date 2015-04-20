@@ -2,7 +2,7 @@
 **	By Carl Sack, CC-BY-3.0													*/
 
 //global variables
-var map, 
+var map,
 	fields = ["gid", "createdby", "featname", "feattype", "status", "acres"], 
 	autocomplete = [];
 
@@ -19,10 +19,10 @@ function initialize(){
 	var tileLayer = L.tileLayer("http://{s}.acetate.geoiq.com/tiles/acetate/{z}/{x}/{y}.png").addTo(map);
 
 	//next: add features to map
-	getData(fields);
+	getData();
 };
 
-function getData(fields){
+function getData(){
 	$.ajax("php/getData.php", {
 		data: {
 			table: "fracsandsites",
@@ -35,8 +35,6 @@ function getData(fields){
 };
 
 function mapData(data){
-	// console.log(data);
-
 	//remove existing map layers
 	map.eachLayer(function(layer){
 		//if not the tile layer
@@ -54,6 +52,8 @@ function mapData(data){
 	//split data into features
 	var dataArray = data.split(", ;");
 	dataArray.pop();
+    
+    //console.log(dataArray);
 	
 	//build geojson features
 	dataArray.forEach(function(d){
@@ -75,16 +75,15 @@ function mapData(data){
 			autocomplete.push(feature.properties.featname);
 		};
 
-		// console.log(feature);
-
 		geojson.features.push(feature);
-
-		$("input[name=featname]").autocomplete({
-			source: autocomplete
-		});
 	});
 	
-	// console.log(geojson);
+    //console.log(geojson);
+    
+    //activate autocomplete on featname input
+    $("input[name=featname]").autocomplete({
+        source: autocomplete
+    });
 
 	var mapDataLayer = L.geoJson(geojson, {
 		pointToLayer: function (feature, latlng) {
@@ -122,13 +121,11 @@ function submitQuery(){
 		data[dataobj.name] = dataobj.value;
 	});
 
-	// console.log(formdata);
-
 	//call the php script
 	$.ajax("php/getData.php", {
 		data: data,
 		success: function(data){
-			mapData(data, map);
+			mapData(data);
 		}
 	})
 };
